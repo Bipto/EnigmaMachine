@@ -22,12 +22,13 @@ namespace EnigmaMachine
         }
 
         private Rotor[] _rotors = new Rotor[3];
+        private Plugboard _plugboard;
 
         public EnigmaMachine(RotorName[] rotors, int[] startingPoints)
         {
             _rotors[0] = new Rotor(rotors[0], startingPoints[0]);        
             _rotors[1] = new Rotor(rotors[1], startingPoints[1]);        
-            _rotors[2] = new Rotor(rotors[2], startingPoints[2]);        
+            _rotors[2] = new Rotor(rotors[2], startingPoints[2]);
         }   
         
         public string EncryptMessage(string message)
@@ -45,6 +46,7 @@ namespace EnigmaMachine
                 else
                 {
                     char character;
+                    char finalCharacter;
 
                     if (_rotors[0].TurnRotor())
                     {
@@ -56,12 +58,14 @@ namespace EnigmaMachine
                             {
                                 int value3 = _rotors[2].GetOutput(value2);
                                 character = Rotor.ConvertIndexToCharacter(value3);
+                                finalCharacter = _plugboard.GetFinalCharacter(character);
                                 outputText += character;
                             }
 
                             else
                             {
                                 character = Rotor.ConvertIndexToCharacter(value2);
+                                finalCharacter = _plugboard.GetFinalCharacter(character);
                                 outputText += character;
                             }
                         }
@@ -69,6 +73,7 @@ namespace EnigmaMachine
                         else
                         {
                             character = Rotor.ConvertIndexToCharacter(value1);
+                            finalCharacter = _plugboard.GetFinalCharacter(character);
                             outputText += character;
                         }
                     }
@@ -76,6 +81,7 @@ namespace EnigmaMachine
                     else
                     {
                         character = Rotor.ConvertIndexToCharacter(_rotors[0].GetOutput());
+                        finalCharacter = _plugboard.GetFinalCharacter(character);
                         outputText += character;
                     }                    
                 }
@@ -92,6 +98,11 @@ namespace EnigmaMachine
             }
 
             MessageBox.Show("The rotors have been reset.");
+        }
+
+        public void CreatePlugboard(Dictionary<char, char> plugs)
+        {
+            _plugboard = new Plugboard(plugs);
         }
     }
 }

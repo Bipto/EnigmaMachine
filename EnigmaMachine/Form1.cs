@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace EnigmaMachine
     public partial class Form1 : Form
     {
         private EnigmaMachine _enigmaMachine;
+        private Dictionary<char, ComboBox> _plugCombos;
 
         public Form1()
         {
@@ -22,6 +24,66 @@ namespace EnigmaMachine
             RtbOutput.Enabled = false;
             RtbOutput.ReadOnly = true;
             BtnReset.Enabled = false;
+            CreatePlugList();
+            ResetPlugs();
+            DisablePlugs();
+            BtnConfigure.Enabled = false;
+            BtnEncode.Enabled = false;
+        }
+
+        private void CreatePlugList()
+        {
+            _plugCombos = new Dictionary<char, ComboBox>();
+            _plugCombos.Add('A', CbxPlugA);
+            _plugCombos.Add('B', CbxPlugB);
+            _plugCombos.Add('C', CbxPlugC);
+            _plugCombos.Add('D', CbxPlugD); 
+            _plugCombos.Add('E', CbxPlugE);
+            _plugCombos.Add('F', CbxPlugF);
+            _plugCombos.Add('G', CbxPlugG);
+            _plugCombos.Add('H', CbxPlugH);
+            _plugCombos.Add('I', CbxPlugI);
+            _plugCombos.Add('J', CbxPlugJ);
+            _plugCombos.Add('K', CbxPlugK);
+            _plugCombos.Add('L', CbxPlugL);
+            _plugCombos.Add('M', CbxPlugM);
+            _plugCombos.Add('N', CbxPlugN);
+            _plugCombos.Add('O', CbxPlugO);
+            _plugCombos.Add('P', CbxPlugP);
+            _plugCombos.Add('Q', CbxPlugQ);
+            _plugCombos.Add('R', CbxPlugR);
+            _plugCombos.Add('S', CbxPlugS);
+            _plugCombos.Add('T', CbxPlugT);
+            _plugCombos.Add('U', CbxPlugU);
+            _plugCombos.Add('V', CbxPlugV);
+            _plugCombos.Add('W', CbxPlugW);
+            _plugCombos.Add('X', CbxPlugX);
+            _plugCombos.Add('Y', CbxPlugY);
+            _plugCombos.Add('Z', CbxPlugZ);
+        }
+
+        private void ResetPlugs()
+        {
+            foreach (var combo in _plugCombos)
+            {
+                combo.Value.SelectedIndex = 0;
+            }
+        }
+
+        private void DisablePlugs()
+        {
+            foreach (var combo in _plugCombos)
+            {
+                combo.Value.Enabled = false;
+            }
+        }
+
+        private void EnablePlugs()
+        {
+            foreach (var combo in _plugCombos)
+            {
+                 combo.Value.Enabled = true;
+            }
         }
 
         private RotorName CreateRotor(string value)
@@ -42,7 +104,6 @@ namespace EnigmaMachine
            {
                 return RotorName.IV;
            }
-
            else if (value == "V")
            {
                 return RotorName.V;
@@ -55,7 +116,7 @@ namespace EnigmaMachine
            {
                 return RotorName.VII;
            }
-            else
+           else
            {
                 return RotorName.VIII;
            }
@@ -102,9 +163,8 @@ namespace EnigmaMachine
 
                     _enigmaMachine = new EnigmaMachine(new[] { rotor1, rotor2, rotor3 }, new[] { startPos1, startPos2, startPos3 });
 
-                    RtbContent.Enabled = true;
-                    RtbOutput.Enabled = true;
-                    BtnReset.Enabled = true;
+                    EnablePlugs();
+                    BtnConfigure.Enabled = true;
                     return;
                 }
             }
@@ -112,6 +172,9 @@ namespace EnigmaMachine
             RtbContent.Enabled = false;
             RtbOutput.Enabled = false;
             BtnReset.Enabled = false;
+            DisablePlugs();
+            BtnConfigure.Enabled = false;
+            BtnEncode.Enabled = false;
         }
 
         private void CbxRotor1_SelectedIndexChanged(object sender, EventArgs e)
@@ -153,6 +216,28 @@ namespace EnigmaMachine
         {
             string output = _enigmaMachine.EncryptMessage(RtbContent.Text);
             RtbOutput.Text = output;
+        }
+
+        private void BtnConfigure_Click(object sender, EventArgs e)
+        {
+            Dictionary<char, char> plugs = new Dictionary<char, char>();
+
+            foreach (var combo in _plugCombos)
+            {
+                if (combo.Value.SelectedIndex != 0)
+                {
+                    string text = combo.Value.GetItemText(combo.Value.SelectedItem);
+                    char value = text[0];
+                    plugs.Add(combo.Key, value);
+                }
+            }
+
+            _enigmaMachine.CreatePlugboard(plugs);
+
+            RtbContent.Enabled = true;
+            RtbOutput.Enabled = true;
+            BtnReset.Enabled = true;
+            BtnEncode.Enabled = true;
         }
     }
 }

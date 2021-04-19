@@ -124,7 +124,6 @@ namespace EnigmaMachine
         {
             char character;
             _characterMap.TryGetValue(index, out character);
-            Debug.WriteLine(character);
             return character;
         }
 
