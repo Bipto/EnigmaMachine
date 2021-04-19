@@ -21,11 +21,6 @@ namespace EnigmaMachine
             VIII
         }
 
-        private readonly Dictionary<int, char> _characterMap = new Dictionary<int, char>()
-        {
-            {1, 'A'}, {2, 'B'}, { 3, 'C'}, {4,'D'}, {5, 'E'}, {6, 'F'}, {7, 'G'}, {8, 'H'}, {9, 'I'}, {10, 'J'}, {11, 'K'}, {12, 'L'}, {13, 'M'}, {14, 'N'}, {15, 'O'}, {16, 'P'}, {17, 'Q'}, {18, 'R'}, {19, 'S'}, {20, 'T'}, {21, 'U'}, {22, 'V'}, {23, 'W'}, {24, 'X'}, {25, 'Y'}, {26, 'Z'} 
-        };
-
         private Rotor[] _rotors = new Rotor[3];
 
         public EnigmaMachine(RotorName[] rotors, int[] startingPoints)
@@ -44,12 +39,45 @@ namespace EnigmaMachine
             {
                 if (value == ' ')
                 {
-                    outputText += ' ';
-                }
+                    continue;
+                }                
 
                 else
                 {
-                    outputText += value;
+                    char character;
+
+                    if (_rotors[0].TurnRotor())
+                    {
+                        int value1 = _rotors[0].GetOutput();
+                        if (_rotors[1].TurnRotor())
+                        {
+                            int value2 = _rotors[1].GetOutput(value1);                            
+                            if (_rotors[2].TurnRotor())
+                            {
+                                int value3 = _rotors[2].GetOutput(value2);
+                                character = Rotor.ConvertIndexToCharacter(value3);
+                                outputText += character;
+                            }
+
+                            else
+                            {
+                                character = Rotor.ConvertIndexToCharacter(value2);
+                                outputText += character;
+                            }
+                        }
+
+                        else
+                        {
+                            character = Rotor.ConvertIndexToCharacter(value1);
+                            outputText += character;
+                        }
+                    }
+
+                    else
+                    {
+                        character = Rotor.ConvertIndexToCharacter(_rotors[0].GetOutput());
+                        outputText += character;
+                    }                    
                 }
             }
 
