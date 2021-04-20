@@ -45,8 +45,6 @@ namespace EnigmaMachine
             this.CbxStartPos3 = new System.Windows.Forms.ComboBox();
             this.RtbContent = new System.Windows.Forms.RichTextBox();
             this.RtbOutput = new System.Windows.Forms.RichTextBox();
-            this.BtnEncode = new System.Windows.Forms.Button();
-            this.BtnReset = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -366,6 +364,7 @@ namespace EnigmaMachine
             this.RtbContent.Size = new System.Drawing.Size(398, 157);
             this.RtbContent.TabIndex = 15;
             this.RtbContent.Text = "";
+            this.RtbContent.TextChanged += new System.EventHandler(this.RtbContent_TextChanged);
             // 
             // RtbOutput
             // 
@@ -375,28 +374,6 @@ namespace EnigmaMachine
             this.RtbOutput.Size = new System.Drawing.Size(398, 157);
             this.RtbOutput.TabIndex = 16;
             this.RtbOutput.Text = "";
-            // 
-            // BtnEncode
-            // 
-            this.BtnEncode.Font = new System.Drawing.Font("Lucida Sans Typewriter", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.BtnEncode.Location = new System.Drawing.Point(698, 686);
-            this.BtnEncode.Name = "BtnEncode";
-            this.BtnEncode.Size = new System.Drawing.Size(132, 39);
-            this.BtnEncode.TabIndex = 17;
-            this.BtnEncode.Text = "Encode";
-            this.BtnEncode.UseVisualStyleBackColor = true;
-            this.BtnEncode.Click += new System.EventHandler(this.BtnEncode_Click);
-            // 
-            // BtnReset
-            // 
-            this.BtnReset.Font = new System.Drawing.Font("Lucida Sans Typewriter", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.BtnReset.Location = new System.Drawing.Point(560, 686);
-            this.BtnReset.Name = "BtnReset";
-            this.BtnReset.Size = new System.Drawing.Size(132, 39);
-            this.BtnReset.TabIndex = 18;
-            this.BtnReset.Text = "Reset";
-            this.BtnReset.UseVisualStyleBackColor = true;
-            this.BtnReset.Click += new System.EventHandler(this.BtnReset_Click);
             // 
             // label7
             // 
@@ -1713,8 +1690,6 @@ namespace EnigmaMachine
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.BtnReset);
-            this.Controls.Add(this.BtnEncode);
             this.Controls.Add(this.RtbOutput);
             this.Controls.Add(this.RtbContent);
             this.Controls.Add(this.label6);
@@ -1757,8 +1732,6 @@ namespace EnigmaMachine
         private System.Windows.Forms.ComboBox CbxStartPos3;
         private System.Windows.Forms.RichTextBox RtbContent;
         private System.Windows.Forms.RichTextBox RtbOutput;
-        private System.Windows.Forms.Button BtnEncode;
-        private System.Windows.Forms.Button BtnReset;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;

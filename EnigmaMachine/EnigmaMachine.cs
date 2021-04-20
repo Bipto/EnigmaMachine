@@ -96,8 +96,6 @@ namespace EnigmaMachine
             {
                 rotor.Reset();
             }
-
-            MessageBox.Show("The rotors have been reset.");
         }
 
         public void CreatePlugboard(Dictionary<char, char> plugs)

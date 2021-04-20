@@ -23,7 +23,6 @@ namespace EnigmaMachine
             RtbContent.Enabled = false;
             RtbOutput.Enabled = false;
             RtbOutput.ReadOnly = true;
-            BtnReset.Enabled = false;
             CreatePlugList();
             ResetPlugs();
             DisablePlugs();
@@ -171,7 +170,6 @@ namespace EnigmaMachine
 
             RtbContent.Enabled = false;
             RtbOutput.Enabled = false;
-            BtnReset.Enabled = false;
             DisablePlugs();
             BtnConfigure.Enabled = false;
             BtnEncode.Enabled = false;
@@ -214,8 +212,7 @@ namespace EnigmaMachine
 
         private void BtnEncode_Click(object sender, EventArgs e)
         {
-            string output = _enigmaMachine.EncryptMessage(RtbContent.Text);
-            RtbOutput.Text = output;
+            
         }
 
         private void BtnConfigure_Click(object sender, EventArgs e)
@@ -236,8 +233,14 @@ namespace EnigmaMachine
 
             RtbContent.Enabled = true;
             RtbOutput.Enabled = true;
-            BtnReset.Enabled = true;
             BtnEncode.Enabled = true;
+        }
+
+        private void RtbContent_TextChanged(object sender, EventArgs e)
+        {
+            _enigmaMachine.Reset();
+            string output = _enigmaMachine.EncryptMessage(RtbContent.Text);
+            RtbOutput.Text = output;
         }
     }
 }
