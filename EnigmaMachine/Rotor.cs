@@ -1,4 +1,6 @@
-﻿namespace EnigmaMachine
+﻿using System.Diagnostics;
+
+namespace EnigmaMachine
 {
     internal class Rotor
     {
@@ -6,8 +8,14 @@
 
         private KeyValuePair<char, char>[] _chars = new KeyValuePair<char, char>[26];
 
-        public Rotor(string wiring)
+        private int _offset = 0;
+        private int _initialOffset = 0;
+
+        public Rotor(string wiring, int initialOffset = 0)
         {
+            _offset = initialOffset;
+            _initialOffset = initialOffset;
+
             //an invalid number of wires were entered
             if (wiring.Length != _alphabet.Length)
             {
@@ -40,13 +48,34 @@
             }
         }
 
-        public char Process(char character)
+        public char Encrypt(char character)
         {
-            int index = Find(character);
-            return _chars[index].Value;
+            int index = FindKey(character);
+            index += _offset;
+            index %= _chars.Length;
+
+            char output = _chars[index].Value;
+            Rotate();
+            return output;
         }
 
-        private int Find(char character)
+        public char Decrypt(char character)
+        {
+            int index = FindValue(character);
+            index -= _offset;
+
+            if (index < 0)
+            {
+                // subtract the negative index from the length of the string
+                index = _chars.Length + index;
+            }
+
+            char output = _chars[index].Key;
+            Rotate();
+            return output;
+        }
+
+        private int FindKey(char character)
         {
             int index = 0;
             foreach (var pair in _chars)
@@ -60,6 +89,34 @@
             }
 
             return -1;
+        }
+
+        private int FindValue(char character)
+        {
+            int index = 0;
+            foreach (var pair in _chars)
+            {
+                if (pair.Value == character)
+                {
+                    return index;
+                }
+
+                index++;
+            }
+            return -1;
+        }
+
+        private void Rotate()
+        {
+            _offset++;
+            _offset %= _chars.Length;
+
+            Debug.WriteLine(_offset);
+        }
+
+        public void Reset()
+        {
+            _offset = _initialOffset;
         }
     }
 }

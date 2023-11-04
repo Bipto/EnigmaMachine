@@ -11,12 +11,20 @@
             _rotors.Add(new Rotor("DMTWSILRUYQNKFEJCAZBPGXOHV"));
         }
 
-        public void Reset()
+        public void RemovePlugs()
         {
             _plugboard.Reset();
         }
 
-        public char Process(char character)
+        public void Reset()
+        {
+            foreach (Rotor rotor in _rotors)
+            {
+                rotor.Reset();
+            }
+        }
+
+        public char Encrypt(char character)
         {
             char output = char.ToUpper(character);
 
@@ -27,15 +35,42 @@
             for (int i = 0; i < _rotors.Count; i++)
             {
                 Rotor rotor = _rotors[i];
-                output = rotor.Process(output);
+                output = rotor.Encrypt(output);
             }
 
             //character goes through each rotor backwards
-            for (int i = _rotors.Count - 1; i >= 0; i--)
+            //for (int i = _rotors.Count - 1; i >= 0; i--)
+            //{
+            //    Rotor rotor = _rotors[i];
+            //    output = rotor.Encrypt(output);
+            //}
+
+            //character goes through the plugboard for the second time
+            output = _plugboard.Replace(output);
+
+            return output;
+        }
+
+        public char Decrypt(char character)
+        {
+            char output = char.ToUpper(character);
+
+            //character goes through the plugboard for the first time
+            output = _plugboard.Replace(output);
+
+            //character goes through each rotor forward
+            for (int i = 0; i < _rotors.Count; i++)
             {
                 Rotor rotor = _rotors[i];
-                output = rotor.Process(output);
+                output = rotor.Decrypt(output);
             }
+
+            //character goes through each rotor backwards
+            //for (int i = _rotors.Count - 1; i >= 0; i--)
+            //{
+            //    Rotor rotor = _rotors[i];
+            //    output = rotor.Decrypt(output);
+            //}
 
             //character goes through the plugboard for the second time
             output = _plugboard.Replace(output);

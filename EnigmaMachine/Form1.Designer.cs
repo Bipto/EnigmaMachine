@@ -35,6 +35,8 @@
             tbxOutput = new TextBox();
             lblOutputTitle = new Label();
             pnlProperties = new Panel();
+            rbtDecrypt = new RadioButton();
+            rbtEncrypt = new RadioButton();
             btnGenerate = new Button();
             lblPropertiesTitle = new Label();
             pnlInput.SuspendLayout();
@@ -107,6 +109,8 @@
             // 
             // pnlProperties
             // 
+            pnlProperties.Controls.Add(rbtDecrypt);
+            pnlProperties.Controls.Add(rbtEncrypt);
             pnlProperties.Controls.Add(btnGenerate);
             pnlProperties.Controls.Add(lblPropertiesTitle);
             pnlProperties.Dock = DockStyle.Top;
@@ -114,6 +118,31 @@
             pnlProperties.Name = "pnlProperties";
             pnlProperties.Size = new Size(1207, 125);
             pnlProperties.TabIndex = 2;
+            // 
+            // rbtDecrypt
+            // 
+            rbtDecrypt.AutoSize = true;
+            rbtDecrypt.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            rbtDecrypt.Location = new Point(191, 58);
+            rbtDecrypt.Name = "rbtDecrypt";
+            rbtDecrypt.Size = new Size(102, 32);
+            rbtDecrypt.TabIndex = 5;
+            rbtDecrypt.TabStop = true;
+            rbtDecrypt.Text = "Decrypt";
+            rbtDecrypt.UseVisualStyleBackColor = true;
+            // 
+            // rbtEncrypt
+            // 
+            rbtEncrypt.AutoSize = true;
+            rbtEncrypt.Checked = true;
+            rbtEncrypt.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            rbtEncrypt.Location = new Point(191, 20);
+            rbtEncrypt.Name = "rbtEncrypt";
+            rbtEncrypt.Size = new Size(99, 32);
+            rbtEncrypt.TabIndex = 4;
+            rbtEncrypt.TabStop = true;
+            rbtEncrypt.Text = "Encrypt";
+            rbtEncrypt.UseVisualStyleBackColor = true;
             // 
             // btnGenerate
             // 
@@ -167,5 +196,7 @@
         private Panel pnlProperties;
         private Button btnGenerate;
         private Label lblPropertiesTitle;
+        private RadioButton rbtDecrypt;
+        private RadioButton rbtEncrypt;
     }
 }

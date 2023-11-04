@@ -15,7 +15,7 @@ namespace EnigmaMachine
 
         private void Form1_Resize(object? sender, EventArgs e)
         {
-            int availableHeight = this.Height - pnlProperties.Height;
+            int availableHeight = this.Bounds.Height - pnlProperties.Bounds.Height - 50;
             int heightPerPanel = availableHeight / 2;
 
             pnlInput.Height = heightPerPanel;
@@ -26,6 +26,7 @@ namespace EnigmaMachine
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
+            _enimgaMachine.Reset();
             ProcessText();
         }
 
@@ -39,7 +40,14 @@ namespace EnigmaMachine
             {
                 if (char.IsLetter(character))
                 {
-                    outputText += _enimgaMachine.Process(character);
+                    if (rbtEncrypt.Checked)
+                    {
+                        outputText += _enimgaMachine.Encrypt(character);
+                    }
+                    else
+                    {
+                        outputText += _enimgaMachine.Decrypt(character);
+                    }
                 }
             }
 
