@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using Newtonsoft.Json;
 
 namespace EnigmaMachine
 {
@@ -6,15 +6,40 @@ namespace EnigmaMachine
     {
         internal PlugBoard _plugboard = new PlugBoard();
 
-        List<Rotor> _rotors = new List<Rotor>();
+        private List<Rotor> _rotors = new List<Rotor>();
+
+        public List<Rotor> Rotors
+        {
+            get { return _rotors; }
+            set {  _rotors = value; }
+        }
+        public PlugBoard PlugBoard => _plugboard;
 
         public EnigmaMachine()
         {
-            _rotors.Add(new Rotor("DMTWSILRUYQNKFEJCAZBPGXOHV", 24, 25));
-            _rotors.Add(new Rotor("HQZGPJTMOBLNCIFDYAWVEUSRKX", 0, 4));
-            _rotors.Add(new Rotor("UQNTLSZFMREHDPXKIBVYGJCWOA", 12, 18));
+            
+        }
 
-            _plugboard.BindCharacters('F', 'Z');
+        public static EnigmaMachine Default
+        {
+            get
+            {
+                EnigmaMachine machine = new EnigmaMachine();
+
+                machine.Rotors.Add(new Rotor(new RotorInfo("DMTWSILRUYQNKFEJCAZBPGXOHV", 24, 25)));
+                machine.Rotors.Add(new Rotor(new RotorInfo("HQZGPJTMOBLNCIFDYAWVEUSRKX", 0, 4)));
+                machine.Rotors.Add(new Rotor(new RotorInfo("UQNTLSZFMREHDPXKIBVYGJCWOA", 12, 18)));
+                machine.PlugBoard.BindCharacters('F', 'Z');
+
+                return machine;
+            }
+        }
+
+        public static EnigmaMachine LoadFromFile(string path)
+        {
+            string text = File.ReadAllText(path);
+            EnigmaMachine machine = JsonConvert.DeserializeObject<EnigmaMachine>(text);
+            return machine;
         }
 
         public void RemovePlugs()
@@ -141,6 +166,22 @@ namespace EnigmaMachine
                     RotateRotor(nextIndex);
                 }
             }
+        }
+
+        public List<RotorInfo> GetRotorInformation()
+        {
+            List<RotorInfo> rotorInfos = new List<RotorInfo>();
+            foreach (var rotor in _rotors)
+            {
+                rotorInfos.Add(rotor.GetRotorInfo());
+            }
+            return rotorInfos;
+        }
+
+        public void SaveConfig(string path)
+        {
+            string json = JsonConvert.SerializeObject(this, Formatting.Indented);
+            File.WriteAllText(path, json);
         }
     }
 }

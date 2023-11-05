@@ -1,25 +1,47 @@
-﻿using System.Diagnostics;
+﻿using System.Text.Json.Serialization;
 
 namespace EnigmaMachine
 {
-    internal class Rotor
+    public class Rotor
     {
-        private string _alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private const string _alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-        private KeyValuePair<char, char>[] _chars = new KeyValuePair<char, char>[26];
+        private readonly KeyValuePair<char, char>[] _chars = new KeyValuePair<char, char>[26];
 
         private int _offset = 0;
         private int _initialOffset = 0;
         private int _notchPosition = 0;
+        private string _wiring = string.Empty;
 
-        public Rotor(string wiring, int initialOffset = 0, int notchPosition = 0)
+        public string Wiring
         {
-            _offset = initialOffset;
-            _initialOffset = initialOffset;
-            _notchPosition = notchPosition;
+            get { return _wiring; }
+            set { _wiring = value; }
+        }
+
+        public int InitialOffset
+        {
+            get { return _initialOffset; }
+            set { _initialOffset = value; }
+        }
+
+        public int NotchPosition
+        {
+            get { return _notchPosition; }
+            set { _notchPosition= value; }
+        }
+
+        public Rotor() { }
+
+        public Rotor(RotorInfo info)
+        {
+            _wiring = info.Wiring;
+            _offset = info.InitialOffset;
+            _initialOffset = info.InitialOffset;
+            _notchPosition = info.NotchPosition;
 
             //an invalid number of wires were entered
-            if (wiring.Length != _alphabet.Length)
+            if (info.Wiring.Length != _alphabet.Length)
             {
                 throw new Exception("An invalid number of wires were entered");
             }
@@ -27,7 +49,7 @@ namespace EnigmaMachine
             //check that we only have one of each character
             List<char> foundCharacters = new List<char>();
             int index = 0;
-            foreach (char c in wiring)
+            foreach (char c in info.Wiring)
             {
                 if (foundCharacters.Contains(c))
                 {
@@ -42,7 +64,7 @@ namespace EnigmaMachine
                     foundCharacters.Add(char.ToUpper(c));
 
                     //map the characters to each other
-                    KeyValuePair<char, char> mapping = new KeyValuePair<char, char>(_alphabet[index], wiring[index]);
+                    KeyValuePair<char, char> mapping = new KeyValuePair<char, char>(_alphabet[index], info.Wiring[index]);
                     _chars[index] = mapping;
                 }
 
@@ -122,6 +144,12 @@ namespace EnigmaMachine
         public void Reset()
         {
             _offset = _initialOffset;
+        }
+
+        public RotorInfo GetRotorInfo()
+        {
+            RotorInfo info = new RotorInfo(_wiring, _initialOffset, _notchPosition);
+            return info;
         }
     }
 }

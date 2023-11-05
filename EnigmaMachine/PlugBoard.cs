@@ -1,6 +1,6 @@
 ﻿namespace EnigmaMachine
 {
-    internal class PlugBoard
+    public class PlugBoard
     {
         private struct CharacterSet
         {
