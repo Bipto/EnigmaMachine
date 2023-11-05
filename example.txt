@@ -1,0 +1,17 @@
+Encrypt
+	Input           - 'A'
+	Plugboard Fwd   - 'A'
+	Rotor 1 Fwd     - 'M'
+	Rotor 2 Fwd  	 - 'C'
+	Rotor 2 Bwd	 - 'Z'
+	Rotor 1 Bwd     - 'M'
+	Plugboard Bwd   - 'M'
+
+Decrypt
+	Input           - 'M'
+	Plugboard Fwd   - 'M'
+	Rotor 1 Fwd     - 'Z'
+	Rotor 2 Fwd  	 - 'C'
+	Rotor 2 Bwd	 - 'M'
+	Rotor  1Bwd     - 'A'
+	Plugboard Bwd   - 'A'

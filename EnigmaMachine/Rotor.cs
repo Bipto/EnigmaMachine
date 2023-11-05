@@ -10,11 +10,13 @@ namespace EnigmaMachine
 
         private int _offset = 0;
         private int _initialOffset = 0;
+        private int _notchPosition = 0;
 
-        public Rotor(string wiring, int initialOffset = 0)
+        public Rotor(string wiring, int initialOffset = 0, int notchPosition = 0)
         {
             _offset = initialOffset;
             _initialOffset = initialOffset;
+            _notchPosition = notchPosition;
 
             //an invalid number of wires were entered
             if (wiring.Length != _alphabet.Length)
@@ -55,7 +57,6 @@ namespace EnigmaMachine
             index %= _chars.Length;
 
             char output = _chars[index].Value;
-            Rotate();
             return output;
         }
 
@@ -71,7 +72,6 @@ namespace EnigmaMachine
             }
 
             char output = _chars[index].Key;
-            Rotate();
             return output;
         }
 
@@ -106,12 +106,17 @@ namespace EnigmaMachine
             return -1;
         }
 
-        private void Rotate()
+
+        public bool Rotate()
         {
             _offset++;
             _offset %= _chars.Length;
 
-            Debug.WriteLine(_offset);
+            if (_offset == _notchPosition)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void Reset()

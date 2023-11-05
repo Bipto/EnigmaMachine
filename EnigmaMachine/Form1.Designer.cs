@@ -63,6 +63,7 @@
             tbxInput.Name = "tbxInput";
             tbxInput.Size = new Size(1207, 97);
             tbxInput.TabIndex = 1;
+            tbxInput.TextChanged += tbxInput_TextChanged;
             // 
             // lblInputTitle
             // 
@@ -88,11 +89,11 @@
             // tbxOutput
             // 
             tbxOutput.Dock = DockStyle.Fill;
-            tbxOutput.Enabled = false;
             tbxOutput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             tbxOutput.Location = new Point(0, 28);
             tbxOutput.Multiline = true;
             tbxOutput.Name = "tbxOutput";
+            tbxOutput.ReadOnly = true;
             tbxOutput.Size = new Size(1207, 97);
             tbxOutput.TabIndex = 3;
             // 

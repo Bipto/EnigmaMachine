@@ -26,7 +26,6 @@ namespace EnigmaMachine
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
-            _enimgaMachine.Reset();
             ProcessText();
         }
 
@@ -36,19 +35,13 @@ namespace EnigmaMachine
 
             string outputText = string.Empty;
 
-            foreach (char character in tbxInput.Text)
+            if (rbtEncrypt.Checked)
             {
-                if (char.IsLetter(character))
-                {
-                    if (rbtEncrypt.Checked)
-                    {
-                        outputText += _enimgaMachine.Encrypt(character);
-                    }
-                    else
-                    {
-                        outputText += _enimgaMachine.Decrypt(character);
-                    }
-                }
+                outputText += _enimgaMachine.Encrypt(tbxInput.Text);
+            }
+            else
+            {
+                outputText += _enimgaMachine.Decrypt(tbxInput.Text);
             }
 
             tbxOutput.Text = outputText;
@@ -76,6 +69,21 @@ namespace EnigmaMachine
 
 
             return (char)c;
+        }
+
+        private void tbxInput_TextChanged(object sender, EventArgs e)
+        {
+            string output = string.Empty;
+            foreach (char c in tbxInput.Text)
+            {
+                if (char.IsLetter(c))
+                {
+                    output += char.ToUpper(c);
+                }
+            }
+            tbxInput.Text = output;
+            tbxInput.SelectionStart = tbxInput.Text.Length;
+            tbxInput.SelectionLength = 1;
         }
     }
 }
