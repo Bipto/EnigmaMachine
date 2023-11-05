@@ -74,30 +74,41 @@ namespace EnigmaMachine
 
         public char Encrypt(char character)
         {
-            int index = FindKey(character);
+            int? index = FindKey(character);
+
+            if (index is null)
+            {
+                return character;
+            }
+
             index += _offset;
             index %= _chars.Length;
 
-            char output = _chars[index].Value;
+            char output = _chars[index.Value].Value;
             return output;
         }
 
         public char Decrypt(char character)
         {
-            int index = FindValue(character);
+            int? index = FindValue(character);
             index -= _offset;
 
-            if (index < 0)
+            if (index is null)
+            {
+                return character;
+            }
+
+            if (index.Value < 0)
             {
                 // subtract the negative index from the length of the string
                 index = _chars.Length + index;
             }
 
-            char output = _chars[index].Key;
+            char output = _chars[index.Value].Key;
             return output;
         }
 
-        private int FindKey(char character)
+        private int? FindKey(char character)
         {
             int index = 0;
             foreach (var pair in _chars)
@@ -110,10 +121,10 @@ namespace EnigmaMachine
                 index++;
             }
 
-            return -1;
+            return null;
         }
 
-        private int FindValue(char character)
+        private int? FindValue(char character)
         {
             int index = 0;
             foreach (var pair in _chars)
@@ -125,7 +136,7 @@ namespace EnigmaMachine
 
                 index++;
             }
-            return -1;
+            return null;
         }
 
 
