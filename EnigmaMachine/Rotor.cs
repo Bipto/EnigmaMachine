@@ -6,7 +6,7 @@ namespace EnigmaMachine
     {
         private const string _alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-        private readonly KeyValuePair<char, char>[] _chars = new KeyValuePair<char, char>[26];
+        private KeyValuePair<char, char>[] _chars = new KeyValuePair<char, char>[26];
 
         private int _offset = 0;
         private int _initialOffset = 0;
@@ -16,7 +16,11 @@ namespace EnigmaMachine
         public string Wiring
         {
             get { return _wiring; }
-            set { _wiring = value; }
+            set 
+            { 
+                _wiring = value;
+                SetupWiring();
+            }
         }
 
         public int InitialOffset
@@ -39,9 +43,13 @@ namespace EnigmaMachine
             _offset = info.InitialOffset;
             _initialOffset = info.InitialOffset;
             _notchPosition = info.NotchPosition;
+            SetupWiring();            
+        }
 
+        private void SetupWiring()
+        {
             //an invalid number of wires were entered
-            if (info.Wiring.Length != _alphabet.Length)
+            if (Wiring.Length != _alphabet.Length)
             {
                 throw new Exception("An invalid number of wires were entered");
             }
@@ -49,7 +57,7 @@ namespace EnigmaMachine
             //check that we only have one of each character
             List<char> foundCharacters = new List<char>();
             int index = 0;
-            foreach (char c in info.Wiring)
+            foreach (char c in Wiring)
             {
                 if (foundCharacters.Contains(c))
                 {
@@ -64,7 +72,7 @@ namespace EnigmaMachine
                     foundCharacters.Add(char.ToUpper(c));
 
                     //map the characters to each other
-                    KeyValuePair<char, char> mapping = new KeyValuePair<char, char>(_alphabet[index], info.Wiring[index]);
+                    KeyValuePair<char, char> mapping = new KeyValuePair<char, char>(_alphabet[index], Wiring[index]);
                     _chars[index] = mapping;
                 }
 
