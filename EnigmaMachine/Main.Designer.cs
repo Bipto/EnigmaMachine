@@ -74,7 +74,7 @@
             // tbxInput
             // 
             tbxInput.Dock = DockStyle.Fill;
-            tbxInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            tbxInput.Font = new Font("Segoe UI", 12F);
             tbxInput.Location = new Point(0, 0);
             tbxInput.Multiline = true;
             tbxInput.Name = "tbxInput";
@@ -97,7 +97,7 @@
             // 
             lblInput.AutoSize = true;
             lblInput.Dock = DockStyle.Top;
-            lblInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblInput.Font = new Font("Segoe UI", 12F);
             lblInput.Location = new Point(0, 0);
             lblInput.Name = "lblInput";
             lblInput.Size = new Size(62, 28);
@@ -107,7 +107,7 @@
             // rbtDecrypt
             // 
             rbtDecrypt.AutoSize = true;
-            rbtDecrypt.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            rbtDecrypt.Font = new Font("Segoe UI", 12F);
             rbtDecrypt.Location = new Point(367, 3);
             rbtDecrypt.Name = "rbtDecrypt";
             rbtDecrypt.Size = new Size(102, 32);
@@ -120,7 +120,7 @@
             // 
             rbtEncrypt.AutoSize = true;
             rbtEncrypt.Checked = true;
-            rbtEncrypt.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            rbtEncrypt.Font = new Font("Segoe UI", 12F);
             rbtEncrypt.Location = new Point(262, 3);
             rbtEncrypt.Name = "rbtEncrypt";
             rbtEncrypt.Size = new Size(99, 32);
@@ -142,7 +142,7 @@
             // tbxOutput
             // 
             tbxOutput.Dock = DockStyle.Fill;
-            tbxOutput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            tbxOutput.Font = new Font("Segoe UI", 12F);
             tbxOutput.Location = new Point(0, 38);
             tbxOutput.Multiline = true;
             tbxOutput.Name = "tbxOutput";
@@ -163,7 +163,7 @@
             // 
             lblOutput.AutoSize = true;
             lblOutput.Dock = DockStyle.Top;
-            lblOutput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblOutput.Font = new Font("Segoe UI", 12F);
             lblOutput.Location = new Point(0, 0);
             lblOutput.Name = "lblOutput";
             lblOutput.Size = new Size(79, 28);
@@ -172,7 +172,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            menuStrip1.Font = new Font("Segoe UI", 12F);
             menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, propertiesToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
@@ -205,7 +205,7 @@
             // configureToolStripMenuItem
             // 
             configureToolStripMenuItem.Name = "configureToolStripMenuItem";
-            configureToolStripMenuItem.Size = new Size(224, 32);
+            configureToolStripMenuItem.Size = new Size(184, 32);
             configureToolStripMenuItem.Text = "Configure";
             configureToolStripMenuItem.Click += configureToolStripMenuItem_Click;
             // 
@@ -219,7 +219,7 @@
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "Main";
-            Text = "Form1";
+            Text = "Enigma Machine";
             pnlInput.ResumeLayout(false);
             pnlInputContent.ResumeLayout(false);
             pnlInputContent.PerformLayout();
