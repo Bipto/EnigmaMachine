@@ -10,7 +10,7 @@ This project is a clean, modular recreation of the German Enigma Machine, design
 - Character-by-character encryption
 - Deterministic output
 - Modular architecture for easy extension and experimentation
-- Clear separateion of concerns
+- Clear separation of concerns
 
 # How it works
 The Enigma Machine encrypts text through a sequence of transformations:
